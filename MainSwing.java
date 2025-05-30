@@ -25,7 +25,7 @@ public class MainSwing {
         loadButton.addActionListener((ActionEvent e) -> {
             try {
                 manager.loadFromFile("trips.txt");
-                outputArea.setText("✔ Заредено успешно!");
+                outputArea.setText("Заредено успешно!");
             } catch (Exception ex) {
                 outputArea.setText("Грешка при зареждане.");
             }
@@ -55,7 +55,7 @@ public class MainSwing {
         saveButton.addActionListener((ActionEvent e) -> {
             try {
                 manager.saveToFile("trips.txt");
-                outputArea.setText("✔ Записано успешно.");
+                outputArea.setText("Записано успешно.");
             } catch (Exception ex) {
                 outputArea.setText("Грешка при запис.");
             }
