@@ -11,7 +11,7 @@ public class MainGUI extends JFrame {
 
     public MainGUI() {
         manager = new TravelManager();
-        setTitle("\"Туристическа Система\"");
+        setTitle("\"РўСѓСЂРёСЃС‚РёС‡РµСЃРєР° РЎРёСЃС‚РµРјР°\"");
         setSize(700, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -20,11 +20,11 @@ public class MainGUI extends JFrame {
         tripList = new JList<>(tripListModel);
         JScrollPane scrollPane = new JScrollPane(tripList);
 
-        JButton loadButton = new JButton("Зареди от файл");
-        JButton saveButton = new JButton("Запази във файл");
-        JButton addButton = new JButton("Добави оферта");
-        JButton searchButton = new JButton("Търси по държава");
-        JButton reserveButton = new JButton("Резервирай");
+        JButton loadButton = new JButton("Р—Р°СЂРµРґРё РѕС‚ С„Р°Р№Р»");
+        JButton saveButton = new JButton("Р—Р°РїР°Р·Рё РІСЉРІ С„Р°Р№Р»");
+        JButton addButton = new JButton("Р”РѕР±Р°РІРё РѕС„РµСЂС‚Р°");
+        JButton searchButton = new JButton("РўСЉСЂСЃРё РїРѕ РґСЉСЂР¶Р°РІР°");
+        JButton reserveButton = new JButton("Р РµР·РµСЂРІРёСЂР°Р№");
 
         JPanel panel = new JPanel();
         panel.add(loadButton);
@@ -40,18 +40,18 @@ public class MainGUI extends JFrame {
             try {
                 manager.loadFromFile("trips.txt");
                 refreshList(manager.getTrips());
-                showMessage("Офертите са заредени.");
+                showMessage("РћС„РµСЂС‚РёС‚Рµ СЃР° Р·Р°СЂРµРґРµРЅРё.");
             } catch (Exception ex) {
-                showMessage("Грешка при зареждане.");
+                showMessage("Р“СЂРµС€РєР° РїСЂРё Р·Р°СЂРµР¶РґР°РЅРµ.");
             }
         });
 
         saveButton.addActionListener(e -> {
             try {
                 manager.saveToFile("trips.txt");
-                showMessage("Запазени успешно.");
+                showMessage("Р—Р°РїР°Р·РµРЅРё СѓСЃРїРµС€РЅРѕ.");
             } catch (Exception ex) {
-                showMessage("Грешка при запис.");
+                showMessage("Р“СЂРµС€РєР° РїСЂРё Р·Р°РїРёСЃ.");
             }
         });
 
@@ -66,16 +66,16 @@ public class MainGUI extends JFrame {
             JTextField spots = new JTextField("5");
 
             JPanel inputPanel = new JPanel(new GridLayout(0, 1));
-            inputPanel.add(new JLabel("Име:")); inputPanel.add(name);
-            inputPanel.add(new JLabel("Държава:")); inputPanel.add(country);
-            inputPanel.add(new JLabel("Град:")); inputPanel.add(city);
-            inputPanel.add(new JLabel("Описание:")); inputPanel.add(desc);
-            inputPanel.add(new JLabel("Начална дата:")); inputPanel.add(start);
-            inputPanel.add(new JLabel("Крайна дата:")); inputPanel.add(end);
-            inputPanel.add(new JLabel("Цена:")); inputPanel.add(price);
-            inputPanel.add(new JLabel("Свободни места:")); inputPanel.add(spots);
+            inputPanel.add(new JLabel("РРјРµ:")); inputPanel.add(name);
+            inputPanel.add(new JLabel("Р”СЉСЂР¶Р°РІР°:")); inputPanel.add(country);
+            inputPanel.add(new JLabel("Р“СЂР°Рґ:")); inputPanel.add(city);
+            inputPanel.add(new JLabel("РћРїРёСЃР°РЅРёРµ:")); inputPanel.add(desc);
+            inputPanel.add(new JLabel("РќР°С‡Р°Р»РЅР° РґР°С‚Р°:")); inputPanel.add(start);
+            inputPanel.add(new JLabel("РљСЂР°Р№РЅР° РґР°С‚Р°:")); inputPanel.add(end);
+            inputPanel.add(new JLabel("Р¦РµРЅР°:")); inputPanel.add(price);
+            inputPanel.add(new JLabel("РЎРІРѕР±РѕРґРЅРё РјРµСЃС‚Р°:")); inputPanel.add(spots);
 
-            int result = JOptionPane.showConfirmDialog(this, inputPanel, "Добавяне на оферта", JOptionPane.OK_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(this, inputPanel, "Р”РѕР±Р°РІСЏРЅРµ РЅР° РѕС„РµСЂС‚Р°", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
                 try {
                     Destination d = new Destination(country.getText(), city.getText(), desc.getText());
@@ -87,13 +87,13 @@ public class MainGUI extends JFrame {
                     manager.addTrip(t);
                     refreshList(manager.getTrips());
                 } catch (Exception ex) {
-                    showMessage("Невалидни данни.");
+                    showMessage("РќРµРІР°Р»РёРґРЅРё РґР°РЅРЅРё.");
                 }
             }
         });
 
         searchButton.addActionListener(e -> {
-            String country = JOptionPane.showInputDialog(this, "Въведи държава:");
+            String country = JOptionPane.showInputDialog(this, "Р’СЉРІРµРґРё РґСЉСЂР¶Р°РІР°:");
             if (country != null) {
                 List<Trip> found = manager.searchByCountry(country);
                 refreshList(found);
@@ -103,7 +103,7 @@ public class MainGUI extends JFrame {
         reserveButton.addActionListener(e -> {
             String selected = tripList.getSelectedValue();
             if (selected == null) {
-                showMessage("Моля, избери оферта.");
+                showMessage("РњРѕР»СЏ, РёР·Р±РµСЂРё РѕС„РµСЂС‚Р°.");
                 return;
             }
             for (Trip t : manager.getTrips()) {
@@ -111,9 +111,9 @@ public class MainGUI extends JFrame {
                     if (t.getAvailableSpots() > 0) {
                         t.reserveSpot();
                         refreshList(manager.getTrips());
-                        showMessage("Резервацията е успешна.");
+                        showMessage("Р РµР·РµСЂРІР°С†РёСЏС‚Р° Рµ СѓСЃРїРµС€РЅР°.");
                     } else {
-                        showMessage("Няма свободни места.");
+                        showMessage("РќСЏРјР° СЃРІРѕР±РѕРґРЅРё РјРµСЃС‚Р°.");
                     }
                     break;
                 }
