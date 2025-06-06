@@ -60,6 +60,77 @@ public class TravelManager {
             }
         }
     }
+    public void loadFromFile(String filename) throws IOException {
+
+    trips.clear();
+
+    tripsByCountry.clear();
+
+    File file = new File(filename);
+
+    if (!file.exists() || file.length() == 0) {
+
+        // Зареждаме вградени оферти, ако файлът липсва или е празен
+
+        addDefaultTrips();
+
+        return;
+
+    }
+
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+
+            String[] parts = line.split("\\|");
+
+            if (parts.length < 8) continue;
+
+            String name = parts[0];
+
+            String country = parts[1];
+
+            String city = parts[2];
+
+            LocalDate start = LocalDate.parse(parts[3]);
+
+            LocalDate end = LocalDate.parse(parts[4]);
+
+            double price = Double.parseDouble(parts[5]);
+
+            int spots = Integer.parseInt(parts[6]);
+
+            String desc = parts[7];
+
+            Destination dest = new Destination(country, city, desc);
+
+            Trip trip = new Trip(name, dest, start, end, price, spots);
+
+            addTrip(trip);
+
+        }
+
+    }
+
+}
+private void addDefaultTrips() {
+
+    addTrip(new Trip("Summer in Greece", new Destination("Greece", "Athens", "Sunny vacation in Athens"),
+
+            LocalDate.of(2025, 7, 1), LocalDate.of(2025, 7, 10), 800.0, 10));
+
+    addTrip(new Trip("Winter in Austria", new Destination("Austria", "Vienna", "Christmas markets and culture"),
+
+            LocalDate.of(2025, 12, 15), LocalDate.of(2025, 12, 22), 950.0, 5));
+
+    addTrip(new Trip("Spring in Japan", new Destination("Japan", "Tokyo", "Cherry blossom experience"),
+
+            LocalDate.of(2025, 4, 5), LocalDate.of(2025, 4, 15), 1200.0, 8));
+
+}
+ 
 
     public void loadFromFile(String filename) throws IOException {
         trips.clear();
